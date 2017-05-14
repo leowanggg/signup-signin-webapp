@@ -1,0 +1,31 @@
+<form class="form-signin" id="sign-up-form" action="/user/create" method="POST">
+    <h2 class="form-signin-heading">创建账户</h2>
+
+    <% if(flash && flash.err) { %>
+		<ul class="alert alert-success">
+	<% Object.keys(flash.err).forEach(function(error) { %>
+		<li><%- JSON.stringify(flash.err[error]) %></li>
+	<% }) %>
+	</ul>
+	<% } %>
+
+    <div class="control-group">
+        <input type="text" name="name" class="form-control" placeholder="用户名"/>
+    </div>
+    <div class="control-group">
+        <input type="text" name="title" class="form-control" placeholder="称谓"/>
+    </div>
+    <div class="control-group">
+        <input type="text" name="email" class="form-control" placeholder="电子邮箱"/>
+    </div>
+    <div class="control-group">
+        <input type="password" id="password" name="password" class="form-control" placeholder="密码"/>
+    </div>
+    <div class="control-group">
+        <input type="password" name="confirmation" class="form-control" placeholder="确认密码"/>
+        <br/>
+    </div>
+
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="创建账户"/>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+</form>

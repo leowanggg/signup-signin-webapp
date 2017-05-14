@@ -1,0 +1,45 @@
+<div class="container">
+	<h3>用户管理</h3>
+	<table class='table'>
+		<tr>
+			<th>状态</th>
+			<th>ID</th>
+			<th>用户名</th>
+			<th>称谓</th>
+			<th>邮箱</th>
+			<th>权限</th>
+			<th>显示</th>
+			<th>编辑</th>
+			<th>删除</th>
+		</tr>
+
+
+		<% _.each(users, function(user) { %>
+		<tr data-id="<%= user.id %>" data-model="user">
+			<% if (user.online) { %>
+				<td><img src="/images/icon-online.png"></td>
+			<% } else { %>
+				<td> <img src="/images/icon-offline.png"></td>
+			<% } %>
+			<td><%= user.id %></td>
+			<td><%= user.name %></td>
+			<td><%= user.title %></td>
+			<td><%= user.email %></td>
+			<% if (user.admin) { %>
+				<td> <img src="/images/admin.png"></td>
+			<% } else { %>
+				<td> <img src="/images/pawn.png"></td>
+			<% } %>
+			<td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary">显示</a></td>
+			<td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning">编辑</a></td>
+            <!-- <td><a href="/user/destroy/<%= user.id %>" class="btn btn-sm btn-danger">删除</a></td> -->
+			<td><form action="/user/destroy/<%= user.id %>" method="POST">
+				<input type="hidden" name="_method" value="delete"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+				<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+			</form></td>
+		</tr>
+
+		<% }) %>
+	</table>
+</div>
